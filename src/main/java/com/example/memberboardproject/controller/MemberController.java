@@ -50,4 +50,9 @@ public class MemberController {
             return "member/login";
         }
     }
+    @GetMapping("logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "index";
+    }
 }

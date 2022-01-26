@@ -7,4 +7,25 @@
 <body>
 <h2>전체목록 조회(findAll)</h2>
 </body>
+<table>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>이메일</th>
+        <th>비밀번호</th>
+        <th>이름</th>
+        <th>조회</th>
+        <th>삭제(get)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${member.memberId}">번호</td>
+        <td th:text="${member.memberEmail}">이메일</td>
+        <td th:text="${member.memberPassword}">비밀번호</td>
+        <td th:text="${member.memberName}">이름</td>
+        <td><a th:href="@{|/member/${member.memberId}|}">조회</a></td>
+    </tr>
+    </tbody>
+</table>
 </html>
