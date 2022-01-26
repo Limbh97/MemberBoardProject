@@ -57,5 +57,11 @@ public class MemberServiceImpl implements MemberService{
     }
 
 
-
+        @Override
+        public void deleteById(Long memberId) {
+            mr.deleteById(memberId);
+        }
 }
+
+
+

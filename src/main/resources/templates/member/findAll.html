@@ -40,6 +40,32 @@
                 }
             });
         }
+
+        //삭제 ajax
+        function deleteById(memberId) {
+            console.log(memberId);
+            const reqUrl = "/member/" + memberId;
+            $.ajax({
+                type: 'delete',
+                url: reqUrl,
+                success: function () {
+                    //삭제 성공하면 회원목록 페이지를 다시 요청하도록
+                    location.href = '/member/';
+                },
+                error: function () {
+                    alert('ajax 실패');
+                }
+            });
+        }
+
+        // 함수이름: deleteFn, 매개변수: memberId
+        const deleteFn = (memberId) => {
+            console.log(memberId);
+        }
+        // 함수이름: deleteFn2
+        const deleteFn2 = () => {
+
+        }
     </script>
 </head>
 <body>

@@ -6,6 +6,8 @@ import com.example.memberboardproject.dto.MemberSaveDTO;
 import com.example.memberboardproject.service.MemberService;
 import com.sun.xml.bind.util.AttributesImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -81,5 +83,19 @@ public class MemberController {
     public @ResponseBody MemberDetailDTO detail(@PathVariable("memberId") Long memberId) {
         MemberDetailDTO member = ms.findById(memberId);
         return member;
+    }
+
+    // 회원삭제
+    @GetMapping("delete/{memberId}")
+    public String deleteById(@PathVariable("memberId") Long memberId) {
+        ms.deleteById(memberId);
+        return "redirect:/member/";
+    }
+
+    // 회원삭제(2번)
+    @DeleteMapping("{memberId}")
+    public ResponseEntity deleteById2(@PathVariable Long memberId) {
+        ms.deleteById(memberId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
