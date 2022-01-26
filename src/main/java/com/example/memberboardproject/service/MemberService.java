@@ -13,8 +13,11 @@ public interface MemberService {
     boolean login(MemberLoginDTO memberLoginDTO);
     //전체회원목록조회
     List<MemberDetailDTO> findAll();
-
+    //상세조회
     MemberDetailDTO findById(Long memberId);
-
+    //삭제
     void deleteById(Long memberId);
+    //정보수정
+    MemberDetailDTO findByEmail(String memberEmail);
+
 }

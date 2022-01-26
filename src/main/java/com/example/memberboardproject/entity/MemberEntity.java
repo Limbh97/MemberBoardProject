@@ -17,13 +17,13 @@ public class MemberEntity {
     @Column(name = "member_id")
     private Long memberId;
 
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
     private String memberEmail;
 
-    @Column(length = 50)
+    @Column(length = 20)
     private String memberPassword;
 
-    @Column(length = 20)
+    @Column
     private String memberName;
 
     //MemberSaveDTO -> MemberEntity로 바꿔줌
@@ -36,6 +36,13 @@ public class MemberEntity {
         return memberEntity;
     }
 
-
-
+    // MemberDetailDTO -> MemberEntity 객체로 변환하기 위한 메서드
+    public static MemberEntity toUpdateMember(MemberDetailDTO memberDetailDTO) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMemberId(memberDetailDTO.getMemberId());
+        memberEntity.setMemberEmail(memberDetailDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberDetailDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDetailDTO.getMemberName());
+        return memberEntity;
+    }
 }

@@ -98,4 +98,13 @@ public class MemberController {
         ms.deleteById(memberId);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    //정보수정 폼
+    @GetMapping("update")
+    public String updateForm(Model model, HttpSession session) {
+        String memberEmail = (String) session.getAttribute(LOGIN_EMAIL);
+        MemberDetailDTO member = ms.findByEmail(memberEmail);
+        model.addAttribute("member", member);
+        return "member/update";
+    }
 }

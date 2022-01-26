@@ -50,17 +50,26 @@ public class MemberServiceImpl implements MemberService{
         return memberList;
     }
 
-//상세조회
-    @Override
-    public MemberDetailDTO findById(Long memberId) {
-        return MemberDetailDTO.toMemberDetailDTO(mr.findById(memberId).get());
+        //상세조회
+        @Override
+        public MemberDetailDTO findById(Long memberId) {
+            return MemberDetailDTO.toMemberDetailDTO(mr.findById(memberId).get());
     }
 
-
+        //삭제
         @Override
         public void deleteById(Long memberId) {
             mr.deleteById(memberId);
         }
+
+        //정보수정
+        @Override
+        public MemberDetailDTO findByEmail(String memberEmail) {
+            MemberEntity memberEntity = mr.findByMemberEmail(memberEmail);
+            MemberDetailDTO memberDetailDTO = MemberDetailDTO.toMemberDetailDTO(memberEntity);
+            return memberDetailDTO;
+    }
+
 }
 
 

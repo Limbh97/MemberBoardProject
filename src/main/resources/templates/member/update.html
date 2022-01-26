@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        const memberUpdate = () => {
+            console.log('수정함수호출');
+
+            const id = document.getElementById('memberId').value;
+            const email = document.querySelector('#memberEmail').value;
+            const password = $('#memberPassword').val();
+            const name = document.querySelector('#memberName').value;
+            console.log(id, email, password, name);
+            // javascript object에 담아서 ajax로 컨트롤러에 보냄.
+            const updateData = JSON.stringify({
+                memberId: id,
+                memberEmail: email,
+                memberPassword: password,
+                memberName: name
+            });
+            const reqUrl = "/member/" + id;
+            console.log(updateData);
+            $.ajax({
+                type: 'put', // put, patch
+                data: updateData,
+                url: reqUrl,
+                contentType: 'application/json', // json 으로 보낼때는 꼭 써야함.
+                success: function () {
+                    location.href = "/member/" + id;
+                },
+                error: function () {
+                    alert('ajax 실패');
+                }
+
+            });
+        }
+    </script>
+</head>
+<body>
+<h2>회원정보수정(update)</h2>
+<form action="/member/update" method="post">
+    <input type="hidden" id="memberId" name="memberId" th:value="${member.memberId}"><br>
+    <input type="text" id="memberEmail" name="memberEmail" th:value="${member.memberEmail}" placeholder="이메일" readonly><br>
+    <input type="text" id="memberPassword" name="memberPassword" th:value="${member.memberPassword}" placeholder="비밀번호" readonly><br>
+    <input type="text" id="memberName" name="memberName" th:value="${member.memberName}" placeholder="이름"><br>
+    <input type="submit" value="수정">
+    <input type="button" value="수정(put)" th:onclick="memberUpdate()">
+</form>
+</body>
+</html>
