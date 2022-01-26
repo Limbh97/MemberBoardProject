@@ -13,4 +13,6 @@ public interface MemberService {
     boolean login(MemberLoginDTO memberLoginDTO);
     //전체회원목록조회
     List<MemberDetailDTO> findAll();
+
+    MemberDetailDTO findById(Long memberId);
 }

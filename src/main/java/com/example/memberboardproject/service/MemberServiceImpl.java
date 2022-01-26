@@ -50,5 +50,11 @@ public class MemberServiceImpl implements MemberService{
         return memberList;
     }
 
+//상세조회
+    @Override
+    public MemberDetailDTO findById(Long memberId) {
+        return MemberDetailDTO.toMemberDetailDTO(mr.findById(memberId).get());
+    }
+
 
 }

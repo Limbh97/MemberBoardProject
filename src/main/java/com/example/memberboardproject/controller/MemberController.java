@@ -8,10 +8,7 @@ import com.sun.xml.bind.util.AttributesImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +22,7 @@ import static com.example.memberboardproject.common.SessionConst.LOGIN_EMAIL;
 public class MemberController {
     private final MemberService ms;
 
-    //회원가입폼
+    //회원가입 폼
     @GetMapping("save")
     public String saveForm(){
         return "member/save";
@@ -37,11 +34,12 @@ public class MemberController {
         ms.save(memberSaveDTO);
         return "index";
     }
-    //로그인폼
+    //로그인 폼
     @GetMapping("login")
     public String loginForm(){
         return "member/login";
     }
+
     //로그인
     @PostMapping("login")
     public String login(@ModelAttribute MemberLoginDTO memberLoginDTO, HttpSession session){
@@ -62,11 +60,19 @@ public class MemberController {
         return "index";
     }
 
-    //전체회원목록폼
+    //전체회원목록 폼
     @GetMapping
     public String findAll(Model model){
         List<MemberDetailDTO> memberList = ms.findAll();
         model.addAttribute("memberList", memberList);
         return "member/findAll";
+    }
+
+    //상세조회
+    @GetMapping("{memberId}")
+    public String findById(@PathVariable("memberId") Long memberId, Model model) {
+        MemberDetailDTO member = ms.findById(memberId);
+        model.addAttribute("member", member);
+        return "member/findById";
     }
 }

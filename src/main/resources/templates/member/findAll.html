@@ -14,8 +14,8 @@
         <th>비밀번호</th>
         <th>이름</th>
         <th>조회</th>
+        <th>조회(ajax)</th>
         <th>삭제(get)</th>
-        <!-- 아래는 차후에 배우면 수정해서 올리겠습니다. -->
         <th>삭제(delete)</th>
     </tr>
     </thead>
@@ -27,6 +27,7 @@
         <td th:text="${member.memberName}">이름</td>
         <!-- detail 주소 처리방식 @{|/주소/${같이 보낼 데이터}|} -->
         <td><a th:href="@{|/member/${member.memberId}|}">조회</a></td>
+
         <td><a th:href="@{|/member/delete/${member.memberId}|}">삭제</a></td>
         <td></td>
     </tr>
