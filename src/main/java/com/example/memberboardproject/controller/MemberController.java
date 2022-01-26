@@ -1,17 +1,21 @@
 package com.example.memberboardproject.controller;
 
+import com.example.memberboardproject.dto.MemberDetailDTO;
 import com.example.memberboardproject.dto.MemberLoginDTO;
 import com.example.memberboardproject.dto.MemberSaveDTO;
 import com.example.memberboardproject.service.MemberService;
 import com.sun.xml.bind.util.AttributesImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+
+import java.util.List;
 
 import static com.example.memberboardproject.common.SessionConst.LOGIN_EMAIL;
 
@@ -47,12 +51,22 @@ public class MemberController {
             session.setAttribute(LOGIN_EMAIL,memberLoginDTO.getMemberEmail());
             return "/index";
         }else {
+            System.out.println("memberController.login.else");
             return "member/login";
         }
     }
+    //로그아웃
     @GetMapping("logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "index";
+    }
+
+    //전체회원목록폼
+    @GetMapping
+    public String findAll(Model model){
+        List<MemberDetailDTO> memberList = ms.findAll();
+        model.addAttribute("memberList", memberList);
+        return "member/findAll";
     }
 }

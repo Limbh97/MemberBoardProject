@@ -1,5 +1,6 @@
 package com.example.memberboardproject.entity;
 
+import com.example.memberboardproject.dto.MemberDetailDTO;
 import com.example.memberboardproject.dto.MemberSaveDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,7 @@ public class MemberEntity {
     @Column(length = 20)
     private String memberName;
 
-
+    //MemberSaveDTO -> MemberEntity로 바꿔줌
     public static MemberEntity saveMember(MemberSaveDTO memberSaveDTO){
         MemberEntity memberEntity = new MemberEntity();
 
@@ -34,5 +35,7 @@ public class MemberEntity {
         memberEntity.setMemberEmail(memberSaveDTO.getMemberEmail());
         return memberEntity;
     }
+
+
 
 }
