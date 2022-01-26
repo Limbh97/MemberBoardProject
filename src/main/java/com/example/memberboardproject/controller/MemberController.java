@@ -75,4 +75,11 @@ public class MemberController {
         model.addAttribute("member", member);
         return "member/findById";
     }
+
+    //상세조회(ajax)
+    @PostMapping("{memberId}") //동일하면 패스 뒤에 없어도 됨
+    public @ResponseBody MemberDetailDTO detail(@PathVariable("memberId") Long memberId) {
+        MemberDetailDTO member = ms.findById(memberId);
+        return member;
+    }
 }
