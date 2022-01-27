@@ -6,12 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
 @Setter
 @Table(name = "board_table")
-public class BoardEntity {
+public class BoardEntity extends BaseEntity{
+    //extends (참조)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
@@ -33,6 +36,7 @@ public class BoardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
+
 
     //Entity 변환
     public static BoardEntity toSaveEntity(BoardSaveDTO boardSaveDTO, MemberEntity memberEntity) {
