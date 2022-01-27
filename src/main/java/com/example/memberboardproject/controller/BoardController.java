@@ -1,21 +1,27 @@
 package com.example.memberboardproject.controller;
 
+import com.example.memberboardproject.common.PagingConst;
 import com.example.memberboardproject.dto.BoardDetailDTO;
+import com.example.memberboardproject.dto.BoardPagingDTO;
 import com.example.memberboardproject.dto.BoardSaveDTO;
 import com.example.memberboardproject.dto.BoardUpdateDTO;
 import com.example.memberboardproject.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/board/*")
+@RequestMapping("/board")
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
@@ -86,6 +92,26 @@ public class BoardController {
     public ResponseEntity update2(@RequestBody BoardUpdateDTO boardUpdateDTO) {
         bs.update(boardUpdateDTO);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    //페이징 처리
+    @GetMapping
+    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
+        Page<BoardPagingDTO> boardList = bs.paging(pageable);
+        model.addAttribute("boardList", boardList);
+        int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / PagingConst.BLOCK_LIMIT))) - 1) * PagingConst.BLOCK_LIMIT + 1;
+        int endPage = ((startPage + PagingConst.BLOCK_LIMIT - 1) < boardList.getTotalPages()) ? startPage + PagingConst.BLOCK_LIMIT - 1 : boardList.getTotalPages();
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        return "board/paging";
+    }
+
+    //로그아웃
+    @GetMapping("logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        System.out.println("넘어옴? 굳?");
+        return "index";
     }
 
 

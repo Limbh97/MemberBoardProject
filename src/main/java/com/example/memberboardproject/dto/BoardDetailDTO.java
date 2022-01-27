@@ -1,6 +1,5 @@
 package com.example.memberboardproject.dto;
 
-
 import com.example.memberboardproject.entity.BoardEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +8,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class BoardDetailDTO {
     private Long boardId;
     private String boardWriter;
@@ -21,7 +20,7 @@ public class BoardDetailDTO {
 
     public static BoardDetailDTO toBoardDetailDTO(BoardEntity boardEntity) {
         BoardDetailDTO boardDetailDTO = new BoardDetailDTO();
-        boardDetailDTO.setBoardId(boardEntity.getBoardId());
+        boardDetailDTO.setBoardId(boardEntity.getId());
         boardDetailDTO.setBoardWriter(boardEntity.getBoardWriter());
         boardDetailDTO.setBoardPassword(boardEntity.getBoardPassword());
         boardDetailDTO.setBoardTitle(boardEntity.getBoardTitle());
@@ -29,5 +28,5 @@ public class BoardDetailDTO {
         boardDetailDTO.setBoardDate(boardEntity.getCreateTime());
         return boardDetailDTO;
     }
-}
 
+}

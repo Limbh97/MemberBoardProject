@@ -1,8 +1,11 @@
 package com.example.memberboardproject.service;
 
 import com.example.memberboardproject.dto.BoardDetailDTO;
+import com.example.memberboardproject.dto.BoardPagingDTO;
 import com.example.memberboardproject.dto.BoardSaveDTO;
 import com.example.memberboardproject.dto.BoardUpdateDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -17,4 +20,6 @@ public interface BoardService {
     void deleteById(Long boardId);
     //글 수정(post, put(ajax)
     Long update(BoardUpdateDTO boardUpdateDTO);
+    //페이징
+    Page<BoardPagingDTO> paging(Pageable pageable);
 }

@@ -1,6 +1,8 @@
 package com.example.memberboardproject.service;
 
+import com.example.memberboardproject.common.PagingConst;
 import com.example.memberboardproject.dto.BoardDetailDTO;
+import com.example.memberboardproject.dto.BoardPagingDTO;
 import com.example.memberboardproject.dto.BoardSaveDTO;
 import com.example.memberboardproject.dto.BoardUpdateDTO;
 import com.example.memberboardproject.entity.BoardEntity;
@@ -8,6 +10,10 @@ import com.example.memberboardproject.entity.MemberEntity;
 import com.example.memberboardproject.repository.BoardRepository;
 import com.example.memberboardproject.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,7 +30,7 @@ public class BoardServiceImpl implements BoardService{
     public Long save(BoardSaveDTO boardSaveDTO) {
         MemberEntity memberEntity = mr.findByMemberEmail(boardSaveDTO.getBoardWriter());
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardSaveDTO, memberEntity);
-        Long boardId = br.save(boardEntity).getBoardId();
+        Long boardId = br.save(boardEntity).getId();
         return boardId;
     }
 
@@ -60,6 +66,22 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public Long update(BoardUpdateDTO boardUpdateDTO) {
         BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardUpdateDTO);
-        return br.save(boardEntity).getBoardId();
+        return br.save(boardEntity).getId();
+    }
+
+    //페이징
+    @Override
+    public Page<BoardPagingDTO> paging(Pageable pageable) {
+        int page = pageable.getPageNumber();
+        // 요청한 페이지가 1이면 페이지값을 0으로 하고 1이 아니면 요청 페이지에서 1을 뺀다.
+        page = (page == 1)? 0 : (page-1);
+        Page<BoardEntity> boardEntities = br.findAll(PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
+        // Page<BoardEntity> => Page<BoardPagingDTO>
+        Page<BoardPagingDTO> boardList = boardEntities.map(
+                board -> new BoardPagingDTO(board.getId(),
+                        board.getBoardWriter(),
+                        board.getBoardTitle())
+        );
+        return boardList;
     }
 }

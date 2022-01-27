@@ -4,7 +4,6 @@ import com.example.memberboardproject.dto.MemberDetailDTO;
 import com.example.memberboardproject.dto.MemberLoginDTO;
 import com.example.memberboardproject.dto.MemberSaveDTO;
 import com.example.memberboardproject.service.MemberService;
-import com.sun.xml.bind.util.AttributesImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +58,7 @@ public class MemberController {
     @GetMapping("logout")
     public String logout(HttpSession session) {
         session.invalidate();
+        System.out.println("넘어옴? 굳?");
         return "index";
     }
 

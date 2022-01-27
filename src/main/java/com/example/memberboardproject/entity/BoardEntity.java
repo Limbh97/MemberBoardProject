@@ -4,61 +4,65 @@ import com.example.memberboardproject.dto.BoardSaveDTO;
 import com.example.memberboardproject.dto.BoardUpdateDTO;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "board_table")
 public class BoardEntity extends BaseEntity{
-    //extends (참조)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
-    private  Long boardId;
+    private Long id;
 
-    @Column(length = 50, unique = true)
+    @Column
     private String boardWriter;
 
-    @Column(length = 20)
+    @Column
     private String boardPassword;
 
-    @Column(length = 50, unique = true)
+    @Column
     private String boardTitle;
 
-    @Column(length = 50, unique = true)
+    @Column
     private String boardContents;
 
-    // 회원 엔티티와의 연관관계
+//    @Column(updatable = false)
+//    private LocalDateTime boardDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
+//    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<CommentEntity> commentEntityList = new ArrayList<>();
 
-    //Entity 변환
-    public static BoardEntity toSaveEntity(BoardSaveDTO boardSaveDTO, MemberEntity memberEntity) {
+    public static BoardEntity toSaveEntity(BoardSaveDTO boardSaveDTO, MemberEntity memberEntity){
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardId(boardEntity.getBoardId());
         boardEntity.setBoardWriter(memberEntity.getMemberEmail());
         boardEntity.setBoardPassword(boardSaveDTO.getBoardPassword());
         boardEntity.setBoardTitle(boardSaveDTO.getBoardTitle());
         boardEntity.setBoardContents(boardSaveDTO.getBoardContents());
         boardEntity.setMemberEntity(memberEntity);
+//        boardEntity.setBoardDate(LocalDateTime.now());
         return boardEntity;
     }
 
-    //
     public static BoardEntity toUpdateEntity(BoardUpdateDTO boardUpdateDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardId(boardUpdateDTO.getBoardId());
+        boardEntity.setId(boardUpdateDTO.getBoardId());
         boardEntity.setBoardWriter(boardUpdateDTO.getBoardWriter());
         boardEntity.setBoardPassword(boardUpdateDTO.getBoardPassword());
         boardEntity.setBoardTitle(boardUpdateDTO.getBoardTitle());
         boardEntity.setBoardContents(boardUpdateDTO.getBoardContents());
-        return  boardEntity;
+//        boardEntity.setBoardDate(LocalDateTime.now());
+        return boardEntity;
     }
 
 }
