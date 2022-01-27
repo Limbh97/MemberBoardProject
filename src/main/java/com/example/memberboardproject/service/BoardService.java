@@ -10,4 +10,6 @@ public interface BoardService {
     Long save(BoardSaveDTO boardSaveDTO);
     //전체 글목록
     List<BoardDetailDTO> findAll();
+    //글목록 조회
+    BoardDetailDTO findById(Long boardId);
 }

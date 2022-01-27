@@ -5,12 +5,11 @@ import com.example.memberboardproject.dto.BoardSaveDTO;
 import com.example.memberboardproject.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,13 +33,29 @@ public class BoardController {
         return "index";
     }
 
-    // 글목록
+    //전체 글목록
     @GetMapping("/")
     public String findAll(Model model) {
         List<BoardDetailDTO> boardList = bs.findAll();
         model.addAttribute("boardList",boardList);
         System.out.println("boardController.login");
         return "board/findAll";
+    }
+
+    // 글목록 조회
+    @GetMapping("/{boardId}")
+    public String findById(Model model, @PathVariable Long boardId) {
+        BoardDetailDTO board = bs.findById(boardId);
+        model.addAttribute("board", board);
+        System.out.println("boardController.login");
+        return "board/findById";
+    }
+
+    //글목록 조회(ajax)
+    @PostMapping("/{boardId}")
+    public ResponseEntity findById2(@PathVariable Long boardId) {
+        BoardDetailDTO board = bs.findById(boardId);
+        return new ResponseEntity<BoardDetailDTO>(board, HttpStatus.OK);
     }
 
 
