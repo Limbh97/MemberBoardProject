@@ -58,6 +58,13 @@ public class BoardController {
         return new ResponseEntity<BoardDetailDTO>(board, HttpStatus.OK);
     }
 
+    // 글삭제(ajax)
+    @DeleteMapping("/{boardId}")
+    public ResponseEntity deleteById2(@PathVariable Long boardId) {
+        bs.deleteById(boardId);
+        return  new ResponseEntity(HttpStatus.OK);
+    }
+
 
 
 }

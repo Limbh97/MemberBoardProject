@@ -12,4 +12,6 @@ public interface BoardService {
     List<BoardDetailDTO> findAll();
     //글목록 조회
     BoardDetailDTO findById(Long boardId);
+
+    void deleteById(Long boardId);
 }

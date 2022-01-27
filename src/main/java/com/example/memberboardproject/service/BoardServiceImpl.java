@@ -49,4 +49,10 @@ public class BoardServiceImpl implements BoardService{
         }
         return boardDetailDTO;
     }
+
+    //글 삭제(ajax)
+    @Override
+    public void deleteById(Long boardId) {
+        br.deleteById(boardId);
+    }
 }
