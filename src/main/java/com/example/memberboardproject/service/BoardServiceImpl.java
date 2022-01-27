@@ -2,6 +2,7 @@ package com.example.memberboardproject.service;
 
 import com.example.memberboardproject.dto.BoardDetailDTO;
 import com.example.memberboardproject.dto.BoardSaveDTO;
+import com.example.memberboardproject.dto.BoardUpdateDTO;
 import com.example.memberboardproject.entity.BoardEntity;
 import com.example.memberboardproject.entity.MemberEntity;
 import com.example.memberboardproject.repository.BoardRepository;
@@ -54,5 +55,11 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public void deleteById(Long boardId) {
         br.deleteById(boardId);
+    }
+    //글 수정 (post, put(ajax))
+    @Override
+    public Long update(BoardUpdateDTO boardUpdateDTO) {
+        BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardUpdateDTO);
+        return br.save(boardEntity).getBoardId();
     }
 }

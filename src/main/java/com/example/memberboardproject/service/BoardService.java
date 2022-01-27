@@ -2,6 +2,7 @@ package com.example.memberboardproject.service;
 
 import com.example.memberboardproject.dto.BoardDetailDTO;
 import com.example.memberboardproject.dto.BoardSaveDTO;
+import com.example.memberboardproject.dto.BoardUpdateDTO;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface BoardService {
     List<BoardDetailDTO> findAll();
     //글목록 조회
     BoardDetailDTO findById(Long boardId);
-
+    //글 삭제
     void deleteById(Long boardId);
+    //글 수정(post, put(ajax)
+    Long update(BoardUpdateDTO boardUpdateDTO);
 }

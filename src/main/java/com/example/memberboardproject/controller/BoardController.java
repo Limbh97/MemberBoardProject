@@ -2,6 +2,7 @@ package com.example.memberboardproject.controller;
 
 import com.example.memberboardproject.dto.BoardDetailDTO;
 import com.example.memberboardproject.dto.BoardSaveDTO;
+import com.example.memberboardproject.dto.BoardUpdateDTO;
 import com.example.memberboardproject.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,6 +64,28 @@ public class BoardController {
     public ResponseEntity deleteById2(@PathVariable Long boardId) {
         bs.deleteById(boardId);
         return  new ResponseEntity(HttpStatus.OK);
+    }
+
+    // 글 수정 화면 요청
+    @GetMapping("/update/{boardId}")
+    public String updateForm(@PathVariable Long boardId, Model model) {
+        BoardDetailDTO board = bs.findById(boardId);
+        model.addAttribute("board", board);
+        return "board/update";
+    }
+
+    // 글 수정 처리 (post)
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardUpdateDTO boardUpdateDTO) {
+        bs.update(boardUpdateDTO);
+        return "redirect:/board/" + boardUpdateDTO.getBoardId();
+    }
+
+    // 글 수정 처리 (put(ajax))
+    @PutMapping("/{boardId}")
+    public ResponseEntity update2(@RequestBody BoardUpdateDTO boardUpdateDTO) {
+        bs.update(boardUpdateDTO);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 
