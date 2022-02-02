@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
-<h2>메인페이지(index)</h2>
-<a href="/member/save">회원가입</a><br>
-<a href="/member/login">로그인</a><br>
-<a href="/member/">회원목록</a><br>
-<a href="/board/save">글쓰기</a><br>
-<a href="/board/">글목록</a><br>
-<a href="/board">페이징</a><br>
-<a href="logout">로그아웃</a><br>
+<h2>index.html</h2>
+
+<div th:if="${session.loginEmail == null}">
+    <a href="/member/save">회원가입</a><br>
+    <a href="/member/login">로그인</a><br>
+</div>
+
+<div th:if="${session.loginEmail != null}">
+    <a href="/board/save">글쓰기</a><br>
+    <a href="/board/">글목록</a><br>
+    <a href="/board">페이징 목록</a><br>
+    <a href="logout">로그아웃</a><br>
+</div>
+
+<div th:if="${session.loginEmail == 'admin'}">
+    <a href="/member/">전체회원목록</a><br>
+    <a href="logout">로그아웃</a><br>
+</div>
 
 세션:<p th:text="${session['loginEmail']}"></p>
+
 </body>
 </html>
