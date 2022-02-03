@@ -3,13 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <style>
+        input{
+            display: block;
+        }
+    </style>
+    <script>
+        function emailDp(){
+            const email = document.getElementById("MemberEmail").value;
+            const ECheck= document.getElementById("emailCheck");
+
+            $.ajax({
+                type: 'post',
+                url: '/member/emailDuplicate',
+                data: {"MemberEmail":email},
+                dataType: 'text',
+                success:function(result){
+                    if(result=='ok'){
+                        ECheck.style.color='green';
+                        ECheck.innerHTML="멋진 이메일입니다";
+                    }else{
+                        ECheck.style.color='red';
+                        ECheck.innerHTML="중복된 이메일입니다.";
+                    }
+                },
+                error: function (){
+                    alert('실패');
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <h2>회원가입(save)</h2>
 <form action="/member/save" method="post">
-    <input type="text" name="memberEmail" placeholder="이메일"><br>
-    <input type="password" name="memberPassword" placeholder="비밀번호"><br>
-    <input type="text" name="memberName" placeholder="이름"><br>
+    <input type="text" name="memberEmail" onblur="emailDp()" id="MemberEmail" placeholder="이메일">
+    <span id="emailCheck"></span>
+    <input type="password" name="memberPassword" placeholder="비밀번호">
+    <input type="text" name="memberName" placeholder="이름">
     <input type="submit" value="회원가입">
 </form>
 </body>

@@ -69,6 +69,17 @@ public class MemberServiceImpl implements MemberService{
             MemberDetailDTO memberDetailDTO = MemberDetailDTO.toMemberDetailDTO(memberEntity);
             return memberDetailDTO;
     }
+        
+        //중복체크
+        @Override
+        public String emailDp(String MemberEmail) {
+            MemberEntity emailCheckResult = mr.findByMemberEmail(MemberEmail);
+            if (emailCheckResult ==null) {
+                return "ok";
+            }else {
+                return "no";
+            }
+        }
 
 }
 

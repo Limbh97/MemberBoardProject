@@ -19,5 +19,6 @@ public interface MemberService {
     void deleteById(Long memberId);
     //정보수정
     MemberDetailDTO findByEmail(String memberEmail);
-
+    //중복체크
+    String emailDp(String MemberEmail);
 }

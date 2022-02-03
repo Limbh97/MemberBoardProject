@@ -61,6 +61,12 @@ public class MemberController {
         System.out.println("넘어옴? 굳?");
         return "index";
     }
+    // 중복체크
+    @PostMapping("/emailDuplicate")
+    public @ResponseBody String emailDp(@RequestParam("MemberEmail") String memberEmail){
+        String result = ms.emailDp(memberEmail);
+        return result;
+    }
 
     //전체회원목록 폼
     @GetMapping
