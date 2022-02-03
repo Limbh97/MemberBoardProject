@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -110,5 +111,11 @@ public class BoardServiceImpl implements BoardService {
             boardDetailDTOSList.add(BoardDetailDTO.toBoardDetailDTO(b));
         }
         return boardDetailDTOSList;
+    }
+
+    @Transactional
+    @Override
+    public void hits(Long boardId) {
+        br.hits(boardId);
     }
 }

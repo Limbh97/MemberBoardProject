@@ -33,7 +33,8 @@ public class BoardEntity extends BaseEntity{
     @Column
     private String boardContents;
 
-
+    @Column
+    private int boardHits;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -49,7 +50,6 @@ public class BoardEntity extends BaseEntity{
         boardEntity.setBoardTitle(boardSaveDTO.getBoardTitle());
         boardEntity.setBoardContents(boardSaveDTO.getBoardContents());
         boardEntity.setMemberEntity(memberEntity);
-//        boardEntity.setBoardDate(LocalDateTime.now());
         return boardEntity;
     }
 
@@ -60,7 +60,6 @@ public class BoardEntity extends BaseEntity{
         boardEntity.setBoardPassword(boardUpdateDTO.getBoardPassword());
         boardEntity.setBoardTitle(boardUpdateDTO.getBoardTitle());
         boardEntity.setBoardContents(boardUpdateDTO.getBoardContents());
-//        boardEntity.setBoardDate(LocalDateTime.now());
         return boardEntity;
     }
 

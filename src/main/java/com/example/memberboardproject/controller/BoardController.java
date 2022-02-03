@@ -1,11 +1,9 @@
 package com.example.memberboardproject.controller;
 
 import com.example.memberboardproject.common.PagingConst;
-import com.example.memberboardproject.dto.BoardDetailDTO;
-import com.example.memberboardproject.dto.BoardPagingDTO;
-import com.example.memberboardproject.dto.BoardSaveDTO;
-import com.example.memberboardproject.dto.BoardUpdateDTO;
+import com.example.memberboardproject.dto.*;
 import com.example.memberboardproject.service.BoardService;
+import com.example.memberboardproject.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,6 +24,7 @@ import java.util.List;
 @Slf4j
 public class BoardController {
     private final BoardService bs;
+    private final CommentService cs;
     
     //글쓰기 폼
     @GetMapping("/save")
@@ -51,12 +50,16 @@ public class BoardController {
 
     // 글목록 조회
     @GetMapping("/{boardId}")
-    public String findById(Model model, @PathVariable Long boardId) {
+    public String findById(Model model, @PathVariable("boardId") Long boardId) {
+        log.info("글보기 메서드 호출. 요청글 번호: {}", boardId);
         BoardDetailDTO board = bs.findById(boardId);
+        List<CommentDetailDTO> commentList = cs.findAll(boardId);
+        bs.hits(boardId);
         model.addAttribute("board", board);
-        System.out.println("boardController.login");
+        model.addAttribute("commentList", commentList);
         return "board/findById";
     }
+
 
     //글목록 조회(ajax)
     @PostMapping("/{boardId}")

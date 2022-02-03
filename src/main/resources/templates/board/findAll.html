@@ -54,6 +54,7 @@
         <th>작성자</th>
         <th>작성일자</th>
         <th>상세조회(ajax)</th>
+        <th>조회수</th>
     </tr>
     </thead>
     <tbody>
@@ -67,9 +68,18 @@
         <td th:text="${board.boardWriter}"></td>
         <td th:text="${board.boardDate}"></td>
         <td><button th:onclick="detail([[${board.boardId}]])">상세조회(ajax)</button></td>
+        <td th:text="${board.boardHits}"></td>
     </tr>
     </tbody>
 </table>
+<form action="/board/search" method="get">
+    <select name="searchType">
+        <option th:value="boardTitle">제목</option>
+        <option th:value="boardWriter">작성자</option>
+    </select>
+    <input type="text" name="keyword" placeholder="검색어를 입력하세요">
+    <input type="submit" value="검색">
+</form>
 <div id="board-detail"></div>
 </body>
 </html>

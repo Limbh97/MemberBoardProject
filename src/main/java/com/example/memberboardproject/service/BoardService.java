@@ -24,4 +24,6 @@ public interface BoardService {
     Page<BoardPagingDTO> paging(Pageable pageable);
     //댓글, 검색
     List<BoardDetailDTO> search(String searchType, String keyword);
+    //조회수
+    void hits(Long boardId);
 }
