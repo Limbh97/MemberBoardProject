@@ -114,6 +114,24 @@ public class BoardController {
         return "index";
     }
 
+    // 댓글, 검색
+    @GetMapping("/search")
+    public String search(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword, Model model) {
+        System.out.println("searchType1 = " + searchType);
+        System.out.println("keyword1 = " + keyword);
+
+        List<BoardDetailDTO> boardList = bs.search(searchType,keyword);
+        System.out.println("boardList" + boardList);
+
+        System.out.println("searchType2 = " + searchType);
+        System.out.println("keyword2 = " + keyword);
+
+        model.addAttribute("boardList",boardList);
+        System.out.println("boardList2 = " + boardList);
+
+        return "/board/findAll";
+    }
+
 
 
 }

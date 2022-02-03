@@ -48,8 +48,73 @@
         <td th:text="${board.boardContents}"></td>
     </tr>
     </tbody>
+</table>
     <a th:href="@{|/board/update/${board.boardId}|}">수정</a>
     <button th:onclick="deleteById([[${board.boardId}]])">삭제</button>
-</table>
+
+<div id="comment-write"></div>
+<input type="text" id="commentWriter" placeholder="작성자">
+<input type="text" id="commentContents" placeholder="내용">
+<button id="comment-write-btn">댓글등록</button>
+
+<div id="comment-area">
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>작성자</th>
+            <th>내용</th>
+            <th>작성일자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment: ${commentList}">
+            <td th:text="${comment.commentId}"></td>
+            <td th:text="${comment.commentWriter}"</td>
+            <td th:text="${comment.commentContents}"></td>
+            <td th:text="${comment.createTime}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $("#comment-write-btn").click(function (){
+        console.log('댓글등록 버튼 클릭');
+        const commentWriter = $("#commentWriter").val();
+        const commentContents = $("#commentContents").val();
+        const boardId = '[[${board.boardId}]]';
+        $.ajax({
+            type: 'post',
+            url: '/comment/save',
+            data: {
+                'commentWriter': commentWriter,
+                'commentContents': commentContents,
+                'boardId': boardId
+            },
+            dataType: 'json',
+            success: function (result){
+                let output = "<table>";
+                output += "<tr><th>댓글번호</th>";
+                output += "<th>작성자</th>";
+                output += "<th>내용</th>";
+                output += "<th>작성시간</th></tr>";
+                for ( let i in result) {
+                    output += "<tr>";
+                    output += "<td>" + result[i].commentId + "</td>";
+                    output += "<td>" + result[i].commentWriter + "</td>";
+                    output += "<td>" + result[i].commentContents + "</td>";
+                    output += "<td>" + result[i].createTime + "</td>";
+                    output += "</tr>";
+                }
+                output += "</table>";
+                document.getElementById('comment-area').innerHTML = output;
+                document.getElementById('commentContents').value = '';
+            },
+            error: function () {
+                alert('ajax 실패');
+            }
+        });
+    });
+</script>
 </body>
 </html>

@@ -22,4 +22,6 @@ public interface BoardService {
     Long update(BoardUpdateDTO boardUpdateDTO);
     //페이징
     Page<BoardPagingDTO> paging(Pageable pageable);
+    //댓글, 검색
+    List<BoardDetailDTO> search(String searchType, String keyword);
 }

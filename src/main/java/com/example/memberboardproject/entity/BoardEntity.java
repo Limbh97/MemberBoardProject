@@ -33,15 +33,14 @@ public class BoardEntity extends BaseEntity{
     @Column
     private String boardContents;
 
-//    @Column(updatable = false)
-//    private LocalDateTime boardDate;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
-//    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<CommentEntity> commentEntityList = new ArrayList<>();
+    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
 
     public static BoardEntity toSaveEntity(BoardSaveDTO boardSaveDTO, MemberEntity memberEntity){
         BoardEntity boardEntity = new BoardEntity();
