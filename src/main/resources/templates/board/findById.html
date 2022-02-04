@@ -36,6 +36,7 @@
         <th>비밀번호</th>
         <th>작성일자</th>
         <th>내용</th>
+        <th>조회수</th>
     </tr>
     </thead>
     <tbody>
@@ -46,6 +47,7 @@
         <td th:text="${board.boardPassword}"></td>
         <td th:text="${board.boardDate}"></td>
         <td th:text="${board.boardContents}"></td>
+        <td th:text="${board.boardHits}"></td>
     </tr>
     </tbody>
 </table>

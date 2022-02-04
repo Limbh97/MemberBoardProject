@@ -52,9 +52,9 @@ public class BoardController {
     @GetMapping("/{boardId}")
     public String findById(Model model, @PathVariable("boardId") Long boardId) {
         log.info("글보기 메서드 호출. 요청글 번호: {}", boardId);
+        bs.hits(boardId);
         BoardDetailDTO board = bs.findById(boardId);
         List<CommentDetailDTO> commentList = cs.findAll(boardId);
-        bs.hits(boardId);
         model.addAttribute("board", board);
         model.addAttribute("commentList", commentList);
         return "board/findById";
