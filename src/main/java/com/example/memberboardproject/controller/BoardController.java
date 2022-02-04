@@ -119,7 +119,7 @@ public class BoardController {
         return "index";
     }
 
-    // 댓글, 검색
+    // 검색
     @GetMapping("/search")
     public String search(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword, Model model) {
         System.out.println("searchType1 = " + searchType);

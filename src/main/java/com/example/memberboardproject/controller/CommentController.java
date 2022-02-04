@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/comment/*")
 public class CommentController {
     private final CommentService cs;
-
+    //댓글
     @PostMapping("save")
     public @ResponseBody List<CommentDetailDTO> save(@ModelAttribute CommentSaveDTO commentSaveDTO) {
         cs.save(commentSaveDTO);

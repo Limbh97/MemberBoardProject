@@ -105,7 +105,7 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    //정보수정 폼
+    //정보수정
     @GetMapping("update")
     public String updateForm(Model model, HttpSession session) {
         String memberEmail = (String) session.getAttribute(LOGIN_EMAIL);
