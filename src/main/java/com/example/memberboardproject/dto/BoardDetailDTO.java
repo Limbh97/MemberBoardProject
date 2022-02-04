@@ -18,6 +18,7 @@ public class BoardDetailDTO {
     private String boardContents;
     private LocalDateTime boardDate;
     private int boardHits;
+    private String boardFileName;
 
     public static BoardDetailDTO toBoardDetailDTO(BoardEntity boardEntity) {
         BoardDetailDTO boardDetailDTO = new BoardDetailDTO();
@@ -28,6 +29,7 @@ public class BoardDetailDTO {
         boardDetailDTO.setBoardContents(boardEntity.getBoardContents());
         boardDetailDTO.setBoardDate(boardEntity.getCreateTime());
         boardDetailDTO.setBoardHits(boardEntity.getBoardHits());
+        boardDetailDTO.setBoardFileName(boardEntity.getBoardFileName());
         return boardDetailDTO;
     }
 

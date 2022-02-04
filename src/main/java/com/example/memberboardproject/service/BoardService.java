@@ -7,11 +7,12 @@ import com.example.memberboardproject.dto.BoardUpdateDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface BoardService {
     //글쓰기
-    Long save(BoardSaveDTO boardSaveDTO);
+    Long save(BoardSaveDTO boardSaveDTO) throws IOException;
     //전체 글목록
     List<BoardDetailDTO> findAll();
     //글목록 조회

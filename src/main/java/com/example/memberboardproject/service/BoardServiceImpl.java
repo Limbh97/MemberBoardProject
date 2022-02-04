@@ -15,8 +15,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +32,15 @@ public class BoardServiceImpl implements BoardService {
 
     //글쓰기
     @Override
-    public Long save(BoardSaveDTO boardSaveDTO) {
+    public Long save(BoardSaveDTO boardSaveDTO) throws IllegalStateException, IOException {
+        MultipartFile boardFile = boardSaveDTO.getBoardFile();
+        String boardFileName = boardFile.getOriginalFilename();
+        boardFileName = System.currentTimeMillis() + "-" + boardFileName;
+        boardSaveDTO.setBoardFileName(boardFileName);
+
+        String savePath = "C:\\development\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\uploadfile\\" + boardFileName;
+        boardFile.transferTo(new File(savePath));
+
         MemberEntity memberEntity = mr.findByMemberEmail(boardSaveDTO.getBoardWriter());
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardSaveDTO, memberEntity);
         Long boardId = br.save(boardEntity).getId();

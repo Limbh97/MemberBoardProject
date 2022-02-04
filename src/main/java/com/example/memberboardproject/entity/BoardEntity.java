@@ -36,6 +36,9 @@ public class BoardEntity extends BaseEntity{
     @Column
     private int boardHits;
 
+    @Column
+    private String boardFileName;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
@@ -45,13 +48,16 @@ public class BoardEntity extends BaseEntity{
 
     public static BoardEntity toSaveEntity(BoardSaveDTO boardSaveDTO, MemberEntity memberEntity){
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(memberEntity.getMemberEmail());
+        boardEntity.setBoardWriter(boardSaveDTO.getBoardWriter());
         boardEntity.setBoardPassword(boardSaveDTO.getBoardPassword());
         boardEntity.setBoardTitle(boardSaveDTO.getBoardTitle());
         boardEntity.setBoardContents(boardSaveDTO.getBoardContents());
         boardEntity.setMemberEntity(memberEntity);
+        boardEntity.setBoardFileName(boardSaveDTO.getBoardFileName());
         return boardEntity;
     }
+
+
 
     public static BoardEntity toUpdateEntity(BoardUpdateDTO boardUpdateDTO) {
         BoardEntity boardEntity = new BoardEntity();

@@ -37,6 +37,7 @@
         <th>작성일자</th>
         <th>내용</th>
         <th>조회수</th>
+        <th>이미지파일</th>
     </tr>
     </thead>
     <tbody>
@@ -48,6 +49,7 @@
         <td th:text="${board.boardDate}"></td>
         <td th:text="${board.boardContents}"></td>
         <td th:text="${board.boardHits}"></td>
+        <td th:text="${board.boardFileName}"></td>
     </tr>
     </tbody>
 </table>
