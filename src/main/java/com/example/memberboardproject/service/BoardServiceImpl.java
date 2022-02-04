@@ -38,7 +38,7 @@ public class BoardServiceImpl implements BoardService {
         boardFileName = System.currentTimeMillis() + "-" + boardFileName;
         boardSaveDTO.setBoardFileName(boardFileName);
 
-        String savePath = "C:\\development\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\uploadfile\\" + boardFileName;
+        String savePath = "C:\\development\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\static\\uploadfile\\" + boardFileName;
         boardFile.transferTo(new File(savePath));
 
         MemberEntity memberEntity = mr.findByMemberEmail(boardSaveDTO.getBoardWriter());
